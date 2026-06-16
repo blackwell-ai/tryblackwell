@@ -10,7 +10,6 @@
   },
   "dependencies": {
     "next": "16.2.6",
-    "ogl": "^1.0.11",
     "react": "^19",
     "react-dom": "^19"
   },
