@@ -8,7 +8,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Checkout is not connected yet." }, { status: 503 })
   }
 
-  const { handle, size } = await req.json()
+  const { handle, size, gender } = await req.json()
   const product = products.find((p) => p.handle === handle)
   if (!product || !product.price) {
     return NextResponse.json({ error: "This piece is not for sale yet." }, { status: 400 })
@@ -19,7 +19,7 @@ export async function POST(req: NextRequest) {
     "line_items[0][quantity]": "1",
     "line_items[0][price_data][currency]": "usd",
     "line_items[0][price_data][unit_amount]": String(Math.round(product.price * 100)),
-    "line_items[0][price_data][product_data][name]": size ? `${product.name} / ${size}` : product.name,
+    "line_items[0][price_data][product_data][name]": [product.name, gender, size].filter(Boolean).join(" / "),
     "shipping_address_collection[allowed_countries][0]": "US",
     success_url: `${req.nextUrl.origin}/shop?status=success`,
     cancel_url: `${req.nextUrl.origin}/shop/${handle}`,

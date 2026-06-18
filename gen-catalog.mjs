@@ -28,15 +28,15 @@ const VIEWS = {
 
 const ITEMS = [
   ["tee", "a fitted premium heavyweight black t-shirt"],
-  ["tank-top", "a fitted black athletic tank top"],
+  ["tank-top", "a men's fitted black athletic tank top, masculine cut"],
   ["compression-short-sleeve", "a tight black short-sleeve compression athletic base-layer top"],
   ["compression-long-sleeve", "a tight black long-sleeve compression athletic base-layer top"],
-  ["polo", "a slim-fit black knit polo shirt"],
+  ["polo", "a slim-fit black short-sleeve knit polo shirt with a standard full body length, not cropped or short"],
+  ["long-sleeve-polo", "a slim-fit black long-sleeve knit polo shirt with a standard body length"],
   ["shirt", "a tailored black button-up shirt"],
   ["hoodie", "a premium black pullover hoodie with a trim modern fit"],
-  ["full-zip", "a black zip-up hooded sweatshirt with a hood and a single separating front zipper running cleanly from hem to collar, trim modern fit"],
-  ["sweater", "a fitted fine-gauge black knit crewneck sweater"],
-  ["pant", "a pair of baggy wide-leg dress trousers in black technical nylon, loose relaxed fit with a soft drape and slight sheen"],
+  ["sweater", "a black knit crewneck sweater with a relaxed, baggy, oversized fit"],
+  ["pant", "a pair of baggy wide-leg dress trousers in smooth black polyester with a clean low-texture finish and a subtle sheen, loose relaxed drapey fit"],
   ["denim", "a pair of baggy wide-leg black denim jeans, loose relaxed fit, true black, with many utility pockets including large cargo pockets"],
   ["cap", "a structured black baseball cap"],
 ]
