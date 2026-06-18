@@ -13,8 +13,14 @@ export default function ShopIndex() {
           >
             <div className="relative flex aspect-square items-center justify-center overflow-hidden bg-[radial-gradient(circle_at_50%_38%,#1d1d1d,#050505_72%)]">
               {p.image ? (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img src={p.image} alt={p.name} className="h-full w-full object-cover" />
+                <>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={p.image} alt={p.name} className="h-full w-full object-cover transition-opacity duration-500 group-hover:opacity-0" />
+                  {p.back && (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img src={p.back} alt={`${p.name} back`} className="absolute inset-0 h-full w-full object-cover opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+                  )}
+                </>
               ) : (
                 <span className="font-[family-name:var(--font-mono)] text-[10px] uppercase tracking-[0.35em] text-[#3a3a3a]">
                   image
