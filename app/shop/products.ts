@@ -21,10 +21,10 @@ export const products: Product[] = [
   // tops
   { handle: "tee", name: "Tee", price: 0, image: "/shop/tee.png", back: "/shop/tee-back.png", genders: GENDERED, model: mm("tee"), sizes: ALPHA },
   { handle: "tank-top", name: "Tank Top", price: 0, image: "/shop/tank-top.png", back: "/shop/tank-top-back.png", genders: GENDERED, model: mm("tank-top"), sizes: ALPHA },
-  { handle: "compression-short-sleeve", name: "Compression Short Sleeve", price: 0, image: "/shop/compression-short-sleeve.png", back: "/shop/compression-short-sleeve-back.png", genders: GENDERED, model: mm("compression-short-sleeve"), sizes: ALPHA },
-  { handle: "compression-long-sleeve", name: "Compression Long Sleeve", price: 0, image: "/shop/compression-long-sleeve.png", back: "/shop/compression-long-sleeve-back.png", genders: GENDERED, model: mm("compression-long-sleeve"), sizes: ALPHA },
+  { handle: "compression-short-sleeve", name: "Compression Short", price: 0, image: "/shop/compression-short-sleeve.png", back: "/shop/compression-short-sleeve-back.png", genders: GENDERED, model: mm("compression-short-sleeve"), sizes: ALPHA },
+  { handle: "compression-long-sleeve", name: "Compression Long", price: 0, image: "/shop/compression-long-sleeve.png", back: "/shop/compression-long-sleeve-back.png", genders: GENDERED, model: mm("compression-long-sleeve"), sizes: ALPHA },
   { handle: "polo", name: "Polo", price: 0, image: "/shop/polo.png", back: "/shop/polo-back.png", genders: GENDERED, model: mm("polo"), sizes: ALPHA },
-  { handle: "long-sleeve-polo", name: "Long Sleeve Polo", price: 0, image: "/shop/long-sleeve-polo.png", back: "/shop/long-sleeve-polo-back.png", genders: GENDERED, model: mm("long-sleeve-polo"), sizes: ALPHA },
+  { handle: "long-sleeve-polo", name: "Polo Long", price: 0, image: "/shop/long-sleeve-polo.png", back: "/shop/long-sleeve-polo-back.png", genders: GENDERED, model: mm("long-sleeve-polo"), sizes: ALPHA },
   { handle: "shirt", name: "Shirt", price: 0, image: "/shop/shirt.png", back: "/shop/shirt-back.png", genders: GENDERED, model: mm("shirt"), sizes: ALPHA },
   // layers
   { handle: "hoodie", name: "Hoodie", price: 0, image: "/shop/hoodie.png", back: "/shop/hoodie-back.png", genders: GENDERED, model: mm("hoodie"), sizes: ALPHA },
