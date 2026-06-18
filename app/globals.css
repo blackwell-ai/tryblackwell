@@ -1,8 +1,12 @@
 @import "tailwindcss";
 
+:root {
+  /* blackout mono: accent is off-white, no color */
+  --accent: #f8f8f8;
+}
+
 html,
 body {
   height: 100%;
   margin: 0;
-  overflow: hidden;
 }
