@@ -78,3 +78,40 @@ can read **only their own** `customers` / `addresses` / `orders` / `order_items`
 `variant_costs`, `inventory`, `stock_movements`, `suppliers`, and
 `financial_transactions` are **service-role only** — cost, finance, inventory
 numbers, and PII are never exposed to the public role.
+
+## Layer 1 — Marketplace (reviewers + brands)
+
+The `marketplace` schema is the two-sided directory for the GEO marketplace,
+migrated from Giftly. It is **service-role only** and **not exposed to the Data
+API** (no `anon`/`authenticated` schema USAGE or grants), so reviewer/brand PII
+is never reachable by the public roles.
+
+| Table | From Giftly | Notes |
+|---|---|---|
+| `marketplace.reviewers` | `creators` (renamed) | people who review gifted product; ids + join dates preserved |
+| `marketplace.brands` | `brands` | companies in the pipeline; `stage` + `source` preserved |
+
+Migrations: `..._marketplace_reviewers_brands.sql` (schema + tables + RLS) and
+`..._marketplace_import_fns.sql` (service-role-only `SECURITY DEFINER` importer
+RPCs in `public` — the sync script writes through these because `marketplace`
+is unexposed).
+
+Giftly's auth bindings (`auth_user_id`, `owner_id`, `invited_at`) are **not**
+migrated — those ids belong to Giftly's `auth.users`. The columns exist
+(nullable, → Blackwell `auth.users`) so reviewers can be re-bound when the
+reviewer portal ships. `giftly_synced_at` records the last sync.
+
+### Syncing from Giftly
+
+`scripts/migrate-giftly.ts` streams `creators`/`brands` straight from Giftly into
+the marketplace tables. Idempotent (upsert on `id`) — safe to re-run as Giftly
+keeps taking applications.
+
+```bash
+pnpm migrate:giftly
+```
+
+Requires in `.env.local`: `GIFTLY_SUPABASE_URL` + `GIFTLY_SECRET_KEY` (Giftly's
+`sb_secret_...` key) alongside Blackwell's `SUPABASE_URL` +
+`SUPABASE_SERVICE_ROLE_KEY`. App code reads marketplace tables with the
+service-role client via `.schema('marketplace')`; `gen:types` emits both schemas.
