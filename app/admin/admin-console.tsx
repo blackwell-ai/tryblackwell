@@ -326,14 +326,29 @@ function EntityPicker({
   selected: PickItem | null
   onSelect: (item: PickItem | null) => void
 }) {
+  const [open, setOpen] = useState(false)
   const [query, setQuery] = useState("")
   const [results, setResults] = useState<PickItem[]>([])
-  const [open, setOpen] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const boxRef = useRef<HTMLDivElement>(null)
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null)
 
+  // Close when clicking outside the control.
   useEffect(() => {
-    if (selected) return
+    if (!open) return
+    function onDoc(e: MouseEvent) {
+      if (boxRef.current && !boxRef.current.contains(e.target as Node)) setOpen(false)
+    }
+    document.addEventListener("mousedown", onDoc)
+    return () => document.removeEventListener("mousedown", onDoc)
+  }, [open])
+
+  // Fetch only while the menu is open; debounce on the query. Opening with an
+  // empty query loads the first results so there's always something to pick.
+  useEffect(() => {
+    if (!open) return
     if (timer.current) clearTimeout(timer.current)
+    setLoading(true)
     timer.current = setTimeout(async () => {
       const fn = kind === "reviewer" ? "admin_list_reviewers" : "admin_list_brands"
       const { data } = await supabase.rpc(fn, { search: query, lim: 8, off: 0 })
@@ -345,63 +360,85 @@ function EntityPicker({
             : { id: r.id, label: r.brand_name, sub: r.contact_email }
         )
       )
-      setOpen(true)
+      setLoading(false)
     }, 220)
     return () => {
       if (timer.current) clearTimeout(timer.current)
     }
-  }, [query, kind, supabase, selected])
-
-  if (selected) {
-    return (
-      <div>
-        <span className="text-xs uppercase tracking-wide text-[#f8f8f8]/40">{label}</span>
-        <div className="mt-1 flex items-center justify-between rounded-md border border-[#f8f8f8]/30 px-3 py-2">
-          <span className="truncate text-sm">{selected.label}</span>
-          <button
-            type="button"
-            onClick={() => {
-              onSelect(null)
-              setQuery("")
-              setResults([])
-            }}
-            className="ml-2 shrink-0 text-xs text-[#f8f8f8]/40 hover:text-[#f8f8f8]"
-          >
-            change
-          </button>
-        </div>
-      </div>
-    )
-  }
+  }, [query, open, kind, supabase])
 
   return (
-    <div className="relative">
+    <div className="relative" ref={boxRef}>
       <span className="text-xs uppercase tracking-wide text-[#f8f8f8]/40">{label}</span>
-      <input
-        className={`${inputCls} mt-1`}
-        placeholder={`Search ${kind}s…`}
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
-        onFocus={() => results.length && setOpen(true)}
-      />
-      {open && results.length > 0 && (
-        <ul className="absolute z-20 mt-1 max-h-64 w-full overflow-auto rounded-md border border-[#f8f8f8]/20 bg-[#0a0a0a] shadow-xl">
-          {results.map((r) => (
-            <li key={r.id}>
-              <button
-                type="button"
-                onClick={() => {
-                  onSelect(r)
-                  setOpen(false)
-                }}
-                className="flex w-full flex-col items-start px-3 py-2 text-left hover:bg-[#f8f8f8]/5"
-              >
-                <span className="text-sm">{r.label}</span>
-                {r.sub && <span className="text-xs text-[#f8f8f8]/40">{r.sub}</span>}
-              </button>
-            </li>
-          ))}
-        </ul>
+
+      {/* The control: click to toggle the menu. Not a <button> so the clear
+          affordance can nest without invalid markup. */}
+      <div
+        role="button"
+        tabIndex={0}
+        onClick={() => setOpen((o) => !o)}
+        onKeyDown={(e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault()
+            setOpen((o) => !o)
+          }
+        }}
+        className={`${inputCls} mt-1 flex cursor-pointer items-center justify-between`}
+      >
+        <span className={`truncate ${selected ? "" : "text-[#f8f8f8]/25"}`}>
+          {selected ? selected.label : `Select a ${kind}…`}
+        </span>
+        <span className="ml-2 flex shrink-0 items-center gap-2">
+          {selected && (
+            <button
+              type="button"
+              onClick={(e) => {
+                e.stopPropagation()
+                onSelect(null)
+                setQuery("")
+              }}
+              className="text-[#f8f8f8]/40 hover:text-[#f8f8f8]"
+              aria-label="Clear selection"
+            >
+              ✕
+            </button>
+          )}
+          <span className="text-[#f8f8f8]/40">{open ? "▴" : "▾"}</span>
+        </span>
+      </div>
+
+      {open && (
+        <div className="absolute z-20 mt-1 w-full overflow-hidden rounded-md border border-[#f8f8f8]/20 bg-[#0a0a0a] shadow-xl">
+          <input
+            autoFocus
+            className="w-full border-b border-[#f8f8f8]/10 bg-transparent px-3 py-2 text-sm outline-none placeholder:text-[#f8f8f8]/25"
+            placeholder={`Search ${kind}s…`}
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+          />
+          <ul className="max-h-64 overflow-auto">
+            {loading && <li className="px-3 py-2 text-xs text-[#f8f8f8]/40">Searching…</li>}
+            {!loading && results.length === 0 && (
+              <li className="px-3 py-2 text-xs text-[#f8f8f8]/40">No matches</li>
+            )}
+            {results.map((r) => (
+              <li key={r.id}>
+                <button
+                  type="button"
+                  onClick={() => {
+                    onSelect(r)
+                    setOpen(false)
+                    setQuery("")
+                  }}
+                  className="flex w-full flex-col items-start px-3 py-2 text-left hover:bg-[#f8f8f8]/5"
+                >
+                  <span className="text-sm">{r.label}</span>
+                  {r.sub && <span className="text-xs text-[#f8f8f8]/40">{r.sub}</span>}
+                </button>
+              </li>
+            ))}
+          </ul>
+        </div>
       )}
     </div>
   )
