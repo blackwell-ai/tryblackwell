@@ -16,8 +16,8 @@ export default async function LoginPage() {
       <div className="w-full max-w-sm">
         <h1 className="text-xl font-medium tracking-tight">Sign in to Blackwell</h1>
         <p className="mt-2 text-sm text-[#f8f8f8]/60">
-          Reviewers, brands, and admins all sign in here. Enter your email and we&apos;ll send a
-          magic link — no password. You&apos;ll be routed to the right place automatically.
+          Reviewers, brands, and admins all sign in here. Continue with Google or use your email —
+          no password. You&apos;ll be routed to the right place automatically.
         </p>
         <LoginForm />
       </div>

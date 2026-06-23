@@ -40,8 +40,12 @@ const FAQ = [
     a: "Use the product and leave an honest, structured review — and short video when it fits. That's it. Your genuine experience is what makes the network valuable.",
   },
   {
+    q: "Is there an application?",
+    a: "No. Sign up with Google, confirm you're 18 or older, and you're in. Add your interests and shipping details whenever you like so we can match you well.",
+  },
+  {
     q: "How do I get matched?",
-    a: "Sign up, tell us your interests and shipping details, and we pair you with brands whose products fit. For now our team curates matches by hand.",
+    a: "Once you've added the categories you care about, we pair you with brands whose products fit. For now our team curates matches by hand.",
   },
 ]
 
@@ -57,12 +61,12 @@ export default function ReviewersPage() {
             <span className="font-normal italic text-[#f8f8f8]/70">honest</span> review.
           </h1>
           <p className="mt-8 max-w-[52ch] text-lg leading-relaxed text-[#f8f8f8]/60 md:text-xl">
-            Join the Blackwell review network. Get real products for free, share what you actually
-            think, and help decide what AI recommends to everyone else. No following needed — just be
-            18 or older.
+            Sign up in seconds with Google — no application. Get real products for free, share what
+            you actually think, and help decide what AI recommends to everyone else. No following
+            needed — just be 18 or older.
           </p>
           <div className="mt-10 flex flex-wrap gap-4">
-            <Cta href="/login">Apply to review</Cta>
+            <Cta href="/login">Sign up free</Cta>
             <Cta href="#how" variant="ghost" arrow="↓">
               How it works
             </Cta>
@@ -102,8 +106,8 @@ export default function ReviewersPage() {
             </h2>
           </div>
           <div className="grid grid-cols-1 gap-x-10 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
-            <Step n="01" title="Sign up" body="Enter your email — no password. Tell us your interests and where to ship." />
-            <Step n="02" title="Get matched" body="We pair you with brands whose products fit what you actually like." />
+            <Step n="01" title="Sign up" body="Continue with Google and confirm you're 18+. No application, no password." />
+            <Step n="02" title="Add interests" body="Tell us the categories you like and where to ship — anytime, takes a minute." />
             <Step n="03" title="Receive product" body="It ships to you free and it's yours to keep, no strings attached." />
             <Step n="04" title="Review" body="Use it and leave an honest, structured review. That's what powers the network." />
           </div>
@@ -130,10 +134,10 @@ export default function ReviewersPage() {
           <span className="font-normal italic text-[#f8f8f8]/70">what AI knows</span>.
         </h2>
         <p className="mx-auto mt-5 max-w-[42ch] text-base text-[#f8f8f8]/60">
-          It takes a minute to sign up. We&apos;ll match you when a product fits.
+          Sign up with Google in seconds. We&apos;ll match you when a product fits.
         </p>
         <div className="mt-10 flex justify-center">
-          <Cta href="/login">Apply to review</Cta>
+          <Cta href="/login">Sign up free</Cta>
         </div>
       </section>
     </>

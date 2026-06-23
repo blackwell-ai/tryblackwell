@@ -14,6 +14,7 @@ export type ReviewerProfile = {
   product_interests: string | null
   content_link: string | null
   shipping_address: string | null
+  age_verified_at: string | null
   created_at: string
 }
 
@@ -34,16 +35,23 @@ const inputCls =
 
 export function ReviewerView({
   email,
+  displayName,
   profile,
   matches,
 }: {
   email: string
+  displayName: string | null
   profile: ReviewerProfile | null
   matches: ReviewerMatch[]
 }) {
   const router = useRouter()
-  // New applicants (no row yet) open straight into the form.
-  const [editing, setEditing] = useState(profile === null)
+  const [editing, setEditing] = useState(false)
+
+  // Signup is just OAuth + an 18+ attestation — no application. Anyone who
+  // hasn't joined yet (no row) or hasn't confirmed their age sees the gate.
+  if (!profile?.age_verified_at) {
+    return <AgeGate email={email} displayName={displayName} onJoined={() => router.refresh()} />
+  }
 
   return (
     <div className="mt-8 space-y-12">
@@ -55,10 +63,10 @@ export function ReviewerView({
             setEditing(false)
             router.refresh()
           }}
-          onCancel={profile ? () => setEditing(false) : undefined}
+          onCancel={() => setEditing(false)}
         />
       ) : (
-        <ProfileCard profile={profile!} onEdit={() => setEditing(true)} />
+        <ProfileCard profile={profile} onEdit={() => setEditing(true)} />
       )}
 
       <section>
@@ -105,6 +113,71 @@ export function ReviewerView({
         )}
       </section>
     </div>
+  )
+}
+
+function AgeGate({
+  email,
+  displayName,
+  onJoined,
+}: {
+  email: string
+  displayName: string | null
+  onJoined: () => void
+}) {
+  const [confirmed, setConfirmed] = useState(false)
+  const [status, setStatus] = useState<"idle" | "joining" | "error">("idle")
+  const [message, setMessage] = useState("")
+
+  async function join() {
+    if (!confirmed) return
+    setStatus("joining")
+    setMessage("")
+    const supabase = createSupabaseBrowserClient()
+    const { error } = await supabase.rpc("join_reviewer", { display_name: displayName })
+    if (error) {
+      setStatus("error")
+      setMessage(error.message)
+      return
+    }
+    onJoined()
+  }
+
+  return (
+    <section className="mt-16 max-w-md">
+      <h1 className="text-2xl font-medium tracking-tight">Welcome to Blackwell</h1>
+      <p className="mt-2 text-sm text-[#f8f8f8]/60">
+        You&apos;re signed in as <span className="text-[#f8f8f8]">{email}</span>. One quick thing
+        before you start receiving products.
+      </p>
+
+      <label className="mt-8 flex cursor-pointer items-start gap-3 rounded-lg border border-[#f8f8f8]/15 p-4 hover:border-[#f8f8f8]/30">
+        <input
+          type="checkbox"
+          checked={confirmed}
+          onChange={(e) => setConfirmed(e.target.checked)}
+          className="mt-0.5 h-4 w-4 accent-[#f8f8f8]"
+        />
+        <span className="text-sm text-[#f8f8f8]/80">I confirm I am 18 years of age or older.</span>
+      </label>
+
+      <button
+        onClick={join}
+        disabled={!confirmed || status === "joining"}
+        className="mt-6 rounded-md bg-[#f8f8f8] px-5 py-2.5 text-sm font-medium text-[#010101] transition-opacity hover:opacity-90 disabled:opacity-40"
+      >
+        {status === "joining" ? "Joining…" : "Join the reviewer network"}
+      </button>
+
+      {status === "error" && (
+        <p className="mt-3 text-sm text-red-400">{message || "Something went wrong."}</p>
+      )}
+
+      <p className="mt-8 text-xs leading-relaxed text-[#f8f8f8]/40">
+        That&apos;s it — no application. Add your interests and shipping details anytime from your
+        profile so we can match you with the right products.
+      </p>
+    </section>
   )
 }
 
