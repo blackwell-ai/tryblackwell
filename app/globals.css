@@ -10,3 +10,23 @@ body {
   height: 100%;
   margin: 0;
 }
+
+/* Marketing marquee band */
+@keyframes blackwell-marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  animation: blackwell-marquee 38s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee {
+    animation: none;
+  }
+}

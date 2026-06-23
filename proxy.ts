@@ -36,9 +36,12 @@ export async function proxy(request: NextRequest) {
 
   // Auth gate for every signed-in surface. Role-level authorization (admin vs
   // brand vs reviewer) is enforced in each page + the SECURITY DEFINER RPCs;
-  // here we only require *a* session.
+  // here we only require *a* session. Match exact segments so the marketing
+  // route /brands is NOT caught by the /brand gate.
   const gated = ["/portal", "/brand", "/admin", "/dashboard"]
-  if (!user && gated.some((p) => request.nextUrl.pathname.startsWith(p))) {
+  const path = request.nextUrl.pathname
+  const isGated = gated.some((p) => path === p || path.startsWith(p + "/"))
+  if (!user && isGated) {
     const url = request.nextUrl.clone()
     url.pathname = "/login"
     return NextResponse.redirect(url)
