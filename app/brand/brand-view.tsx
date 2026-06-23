@@ -24,8 +24,6 @@ export type BrandMatch = {
   created_at: string
   reviewer_id: string
   name: string
-  platform: string | null
-  followers: string | null
   niches: string[]
   social_handles: string | null
   content_link: string | null
@@ -106,9 +104,6 @@ export function BrandView({ brand, matches }: { brand: BrandProfile; matches: Br
                 <div className="flex items-center justify-between gap-3">
                   <span className="font-medium">{m.name}</span>
                   <StatusPill status={m.status} />
-                </div>
-                <div className="mt-1 text-xs uppercase tracking-wide text-[#f8f8f8]/40">
-                  {[m.platform, m.followers].filter(Boolean).join(" · ")}
                 </div>
                 {m.niches?.length > 0 && (
                   <div className="mt-3 flex flex-wrap gap-2">

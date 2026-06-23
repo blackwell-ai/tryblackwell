@@ -15,8 +15,6 @@ export type AdminReviewer = {
   id: string
   name: string
   email: string
-  platform: string | null
-  followers: string | null
   niches: string[]
   social_handles: string | null
   content_link: string | null
@@ -448,9 +446,6 @@ function ReviewersTab({
                 <div className="truncate text-xs text-[#f8f8f8]/50">{r.email}</div>
               </div>
               <span className="shrink-0 text-xs text-[#f8f8f8]/30">{r.source}</span>
-            </div>
-            <div className="mt-2 text-xs uppercase tracking-wide text-[#f8f8f8]/40">
-              {[r.platform, r.followers].filter(Boolean).join(" · ")}
             </div>
             {r.niches?.length > 0 && (
               <div className="mt-2 flex flex-wrap gap-1.5">

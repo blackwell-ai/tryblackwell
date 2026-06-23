@@ -1,5 +1,6 @@
 import type { Metadata } from "next"
 import "./globals.css"
+import { DevBar } from "./lib/dev"
 
 export const metadata: Metadata = {
   title: "Blackwell",
@@ -13,7 +14,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="antialiased">{children}</body>
+      <body className="antialiased">
+        {children}
+        <DevBar />
+      </body>
     </html>
   )
 }

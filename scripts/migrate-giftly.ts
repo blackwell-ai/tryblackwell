@@ -65,8 +65,10 @@ const bw = createClient(BW_URL, BW_KEY, { auth: { persistSession: false } })
 // Only the columns the importer RPCs consume. Giftly's auth_user_id / owner_id /
 // invited_at are deliberately omitted: those ids belong to Giftly's auth.users
 // and are imported as NULL (reviewers get re-bound to Blackwell auth later).
+// platform/followers intentionally dropped — reviewers aren't influencers, so
+// those metrics are obsolete (see migration 20260622000007).
 const REVIEWER_COLS =
-  "id,name,email,social_handles,platform,followers,niches,product_interests,content_link,shipping_address,notes,source,reviewed_at,archived_at,created_at,updated_at"
+  "id,name,email,social_handles,niches,product_interests,content_link,shipping_address,notes,source,reviewed_at,archived_at,created_at,updated_at"
 const BRAND_COLS =
   "id,brand_name,website,category,product_description,contact_name,contact_role,contact_email,stage,source,notes,reviewed_at,archived_at,created_at,updated_at"
 

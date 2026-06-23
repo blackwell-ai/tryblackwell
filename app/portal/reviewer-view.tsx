@@ -10,8 +10,6 @@ export type ReviewerProfile = {
   name: string
   email: string
   social_handles: string | null
-  platform: string | null
-  followers: string | null
   niches: string[]
   product_interests: string | null
   content_link: string | null
@@ -135,8 +133,6 @@ function ProfileCard({ profile, onEdit }: { profile: ReviewerProfile; onEdit: ()
       )}
 
       <dl className="mt-8 grid grid-cols-1 gap-5 sm:grid-cols-2">
-        <Field label="Platform" value={profile.platform} />
-        <Field label="Followers" value={profile.followers} />
         <Field label="Social" value={profile.social_handles} />
         <Field label="Content" value={profile.content_link} />
         <Field label="Product interests" value={profile.product_interests} />
@@ -163,8 +159,6 @@ function ProfileForm({
 }) {
   const [form, setForm] = useState({
     name: profile?.name ?? "",
-    platform: profile?.platform ?? "",
-    followers: profile?.followers ?? "",
     social_handles: profile?.social_handles ?? "",
     content_link: profile?.content_link ?? "",
     product_interests: profile?.product_interests ?? "",
@@ -217,24 +211,6 @@ function ProfileForm({
             onChange={(e) => set("name", e.target.value)}
             placeholder="Your name"
             required
-          />
-        </label>
-        <label>
-          <span className={labelCls}>Platform</span>
-          <input
-            className={inputCls}
-            value={form.platform}
-            onChange={(e) => set("platform", e.target.value)}
-            placeholder="TikTok, Instagram, YouTube…"
-          />
-        </label>
-        <label>
-          <span className={labelCls}>Followers</span>
-          <input
-            className={inputCls}
-            value={form.followers}
-            onChange={(e) => set("followers", e.target.value)}
-            placeholder="e.g. 12k"
           />
         </label>
         <label>
