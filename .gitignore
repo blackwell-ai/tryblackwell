@@ -5,3 +5,6 @@ next-env.d.ts
 .DS_Store
 *.tsbuildinfo
 .gstack/
+
+# Playwright MCP browser artifacts
+.playwright-mcp/

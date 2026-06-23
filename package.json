@@ -14,6 +14,7 @@
     "gen:types": "supabase gen types typescript --linked --schema public --schema marketplace > app/lib/database.types.ts"
   },
   "dependencies": {
+    "@supabase/ssr": "^0.12.0",
     "@supabase/supabase-js": "^2.47.10",
     "next": "16.2.6",
     "react": "^19",
