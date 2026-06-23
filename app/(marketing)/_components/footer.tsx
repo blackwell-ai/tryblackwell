@@ -41,7 +41,6 @@ export function Footer() {
             links={[
               { href: "/brands", label: "For brands" },
               { href: "/reviewers", label: "For reviewers" },
-              { href: "/shop", label: "Shop" },
               { href: "/login", label: "Sign in" },
             ]}
           />

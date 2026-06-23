@@ -7,7 +7,6 @@ import { BrandMark } from "@/app/lib/brand-mark"
 const links = [
   { href: "/brands", label: "For brands" },
   { href: "/reviewers", label: "For reviewers" },
-  { href: "/shop", label: "Shop" },
 ]
 
 export function Nav() {
