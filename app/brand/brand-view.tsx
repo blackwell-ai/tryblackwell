@@ -4,6 +4,7 @@ import { useState } from "react"
 import { useRouter } from "next/navigation"
 import { createSupabaseBrowserClient } from "@/app/lib/supabase/browser"
 import { Chip, Field, StatusPill } from "@/app/lib/ui"
+import { SelfTagEditor, type Tag } from "@/app/lib/tags"
 
 export type BrandProfile = {
   id: string
@@ -34,21 +35,39 @@ const labelCls = "text-xs uppercase tracking-wide text-[#f8f8f8]/40"
 const inputCls =
   "mt-1 w-full rounded-md border border-[#f8f8f8]/20 bg-transparent px-3 py-2 text-sm outline-none placeholder:text-[#f8f8f8]/25 focus:border-[#f8f8f8]/50"
 
-export function BrandView({ brand, matches }: { brand: BrandProfile; matches: BrandMatch[] }) {
+export function BrandView({
+  brand,
+  matches,
+  initialTags,
+}: {
+  brand: BrandProfile
+  matches: BrandMatch[]
+  initialTags: Tag[]
+}) {
   const router = useRouter()
   const [editing, setEditing] = useState(false)
+  const [tags, setTags] = useState<Tag[]>(initialTags)
+  const [synth, setSynth] = useState<"idle" | "running">("idle")
+
+  async function afterSave() {
+    setEditing(false)
+    router.refresh()
+    setSynth("running")
+    try {
+      await fetch("/api/tags/synthesize", { method: "POST" })
+      const supabase = createSupabaseBrowserClient()
+      const { data } = await supabase.rpc("my_tags")
+      if (Array.isArray(data)) setTags(data as Tag[])
+    } catch {
+      /* AI optional — ignore failures */
+    }
+    setSynth("idle")
+  }
 
   return (
     <div className="mt-8 space-y-12">
       {editing ? (
-        <BrandForm
-          brand={brand}
-          onDone={() => {
-            setEditing(false)
-            router.refresh()
-          }}
-          onCancel={() => setEditing(false)}
-        />
+        <BrandForm brand={brand} onDone={afterSave} onCancel={() => setEditing(false)} />
       ) : (
         <section>
           <div className="flex items-start justify-between gap-4">
@@ -87,6 +106,22 @@ export function BrandView({ brand, matches }: { brand: BrandProfile; matches: Br
           </dl>
         </section>
       )}
+
+      <section>
+        <div className="flex items-center justify-between">
+          <h2 className="text-sm font-medium uppercase tracking-[0.2em] text-[#f8f8f8]/50">
+            Categories &amp; tags
+          </h2>
+          {synth === "running" && <span className="text-xs text-[#f8f8f8]/40">✦ generating…</span>}
+        </div>
+        <p className="mt-2 max-w-prose text-xs leading-relaxed text-[#f8f8f8]/40">
+          What your brand operates in. We auto-generate tags from your description when you save —
+          add your own anytime. These drive reviewer matching.
+        </p>
+        <div className="mt-4">
+          <SelfTagEditor tags={tags} onChange={setTags} />
+        </div>
+      </section>
 
       <section>
         <h2 className="text-sm font-medium uppercase tracking-[0.2em] text-[#f8f8f8]/50">

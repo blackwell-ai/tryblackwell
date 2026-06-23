@@ -1,6 +1,7 @@
 import { redirect } from "next/navigation"
 import { getWho } from "@/app/lib/portal"
 import { ConsoleHeader } from "@/app/lib/ui"
+import type { Tag } from "@/app/lib/tags"
 import { BrandView, type BrandProfile, type BrandMatch } from "./brand-view"
 
 export const metadata = { title: "Brand portal — Blackwell" }
@@ -15,6 +16,7 @@ export default async function BrandPage() {
 
   const { data: brand } = await supabase.rpc("claim_brand")
   const { data: matches } = await supabase.rpc("my_brand_matches")
+  const { data: tags } = await supabase.rpc("my_tags")
 
   return (
     <main className="min-h-screen w-full bg-[#010101] px-6 py-10 text-[#f8f8f8]">
@@ -24,6 +26,7 @@ export default async function BrandPage() {
           <BrandView
             brand={brand as BrandProfile}
             matches={(matches as BrandMatch[] | null) ?? []}
+            initialTags={(tags as Tag[] | null) ?? []}
           />
         ) : (
           <p className="mt-10 text-sm text-[#f8f8f8]/60">

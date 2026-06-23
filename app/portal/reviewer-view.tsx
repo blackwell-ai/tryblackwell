@@ -4,6 +4,7 @@ import { useState } from "react"
 import { useRouter } from "next/navigation"
 import { createSupabaseBrowserClient } from "@/app/lib/supabase/browser"
 import { Chip, Field, StatusPill } from "@/app/lib/ui"
+import { SelfTagEditor, type Tag } from "@/app/lib/tags"
 
 export type ReviewerProfile = {
   id: string
@@ -38,19 +39,39 @@ export function ReviewerView({
   displayName,
   profile,
   matches,
+  initialTags,
 }: {
   email: string
   displayName: string | null
   profile: ReviewerProfile | null
   matches: ReviewerMatch[]
+  initialTags: Tag[]
 }) {
   const router = useRouter()
   const [editing, setEditing] = useState(false)
+  const [tags, setTags] = useState<Tag[]>(initialTags)
+  const [synth, setSynth] = useState<"idle" | "running">("idle")
 
   // Signup is just OAuth + an 18+ attestation — no application. Anyone who
   // hasn't joined yet (no row) or hasn't confirmed their age sees the gate.
   if (!profile?.age_verified_at) {
     return <AgeGate email={email} displayName={displayName} onJoined={() => router.refresh()} />
+  }
+
+  async function afterSave() {
+    setEditing(false)
+    router.refresh()
+    // AI-synthesize tags from the updated interests, then refresh the chips.
+    setSynth("running")
+    try {
+      await fetch("/api/tags/synthesize", { method: "POST" })
+      const supabase = createSupabaseBrowserClient()
+      const { data } = await supabase.rpc("my_tags")
+      if (Array.isArray(data)) setTags(data as Tag[])
+    } catch {
+      /* AI optional — ignore failures */
+    }
+    setSynth("idle")
   }
 
   return (
@@ -59,15 +80,28 @@ export function ReviewerView({
         <ProfileForm
           email={email}
           profile={profile}
-          onDone={() => {
-            setEditing(false)
-            router.refresh()
-          }}
+          onDone={afterSave}
           onCancel={() => setEditing(false)}
         />
       ) : (
         <ProfileCard profile={profile} onEdit={() => setEditing(true)} />
       )}
+
+      <section>
+        <div className="flex items-center justify-between">
+          <h2 className="text-sm font-medium uppercase tracking-[0.2em] text-[#f8f8f8]/50">
+            Interests &amp; tags
+          </h2>
+          {synth === "running" && <span className="text-xs text-[#f8f8f8]/40">✦ generating…</span>}
+        </div>
+        <p className="mt-2 max-w-prose text-xs leading-relaxed text-[#f8f8f8]/40">
+          These power your brand matches. We auto-generate tags from your interests when you save —
+          and you can add your own anytime.
+        </p>
+        <div className="mt-4">
+          <SelfTagEditor tags={tags} onChange={setTags} />
+        </div>
+      </section>
 
       <section>
         <h2 className="text-sm font-medium uppercase tracking-[0.2em] text-[#f8f8f8]/50">

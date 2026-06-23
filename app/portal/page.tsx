@@ -1,6 +1,7 @@
 import { redirect } from "next/navigation"
 import { getWho } from "@/app/lib/portal"
 import { ConsoleHeader } from "@/app/lib/ui"
+import type { Tag } from "@/app/lib/tags"
 import { ReviewerView, type ReviewerProfile, type ReviewerMatch } from "./reviewer-view"
 
 export const metadata = { title: "Reviewer portal — Blackwell" }
@@ -15,6 +16,7 @@ export default async function PortalPage() {
 
   const { data: profile } = await supabase.rpc("claim_reviewer")
   const { data: matches } = await supabase.rpc("my_reviewer_matches")
+  const { data: tags } = await supabase.rpc("my_tags")
 
   // From the OAuth identity (e.g. Google), used to prefill the name on join.
   const meta = user.user_metadata as { full_name?: string; name?: string } | undefined
@@ -29,6 +31,7 @@ export default async function PortalPage() {
           displayName={displayName}
           profile={(profile as ReviewerProfile | null) ?? null}
           matches={(matches as ReviewerMatch[] | null) ?? []}
+          initialTags={(tags as Tag[] | null) ?? []}
         />
       </div>
     </main>

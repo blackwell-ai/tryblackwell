@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react"
 import { createSupabaseBrowserClient } from "@/app/lib/supabase/browser"
 import { StatusPill } from "@/app/lib/ui"
+import { AdminEntityTags, TagChips, type Tag } from "@/app/lib/tags"
 
 export type AdminStats = {
   reviewers: number
@@ -26,6 +27,7 @@ export type AdminReviewer = {
   archived_at: string | null
   created_at: string
   match_count: number
+  tags: Tag[]
 }
 export type AdminBrand = {
   id: string
@@ -43,6 +45,7 @@ export type AdminBrand = {
   archived_at: string | null
   created_at: string
   match_count: number
+  tags: Tag[]
 }
 export type AdminMatch = {
   id: string
@@ -257,6 +260,14 @@ function MatchesTab({
         </div>
       </form>
 
+      <AiMatchPanel
+        supabase={supabase}
+        onCreated={async () => {
+          await refresh()
+          onChanged()
+        }}
+      />
+
       <div>
         <div className="mb-3 flex items-center justify-between">
           <h3 className="text-sm font-medium uppercase tracking-[0.2em] text-[#f8f8f8]/50">
@@ -305,6 +316,122 @@ function MatchesTab({
         )}
       </div>
     </div>
+  )
+}
+
+// ---------------------------------------------------------------------------
+// AI match panel — Claude ranks reviewers for a chosen brand
+// ---------------------------------------------------------------------------
+type AiMatch = { reviewer_id: string; name: string; score: number; reason: string }
+
+function AiMatchPanel({ supabase, onCreated }: { supabase: Supa; onCreated: () => void }) {
+  const [brand, setBrand] = useState<PickItem | null>(null)
+  const [status, setStatus] = useState<"idle" | "running" | "error">("idle")
+  const [message, setMessage] = useState("")
+  const [results, setResults] = useState<AiMatch[]>([])
+  const [created, setCreated] = useState<Set<string>>(new Set())
+
+  async function suggest() {
+    if (!brand) return
+    setStatus("running")
+    setMessage("")
+    setResults([])
+    setCreated(new Set())
+    try {
+      const res = await fetch("/api/admin/match", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ brandId: brand.id }),
+      })
+      const json = await res.json()
+      if (!res.ok) {
+        setStatus("error")
+        setMessage(json.error ?? "AI match failed")
+        return
+      }
+      setResults(json.matches ?? [])
+      setMessage(json.note ?? "")
+      setStatus("idle")
+    } catch (e) {
+      setStatus("error")
+      setMessage((e as Error).message)
+    }
+  }
+
+  async function create(reviewerId: string) {
+    if (!brand) return
+    await supabase.rpc("admin_create_match", {
+      p_reviewer_id: reviewerId,
+      p_brand_id: brand.id,
+      p_notes: "AI-suggested",
+    })
+    setCreated((s) => new Set(s).add(reviewerId))
+    onCreated()
+  }
+
+  return (
+    <form
+      onSubmit={(e) => {
+        e.preventDefault()
+        suggest()
+      }}
+      className="rounded-lg border border-[#f8f8f8]/12 p-4"
+    >
+      <h3 className="text-sm font-medium uppercase tracking-[0.2em] text-[#f8f8f8]/50">
+        ✦ AI match a brand
+      </h3>
+      <p className="mt-1 text-xs text-[#f8f8f8]/40">
+        Claude ranks reviewers by fit using both sides&apos; tags and interests.
+      </p>
+      <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:items-end">
+        <div className="flex-1">
+          <EntityPicker
+            label="Brand"
+            kind="brand"
+            supabase={supabase}
+            selected={brand}
+            onSelect={(b) => {
+              setBrand(b)
+              setResults([])
+              setMessage("")
+            }}
+          />
+        </div>
+        <button type="submit" disabled={!brand || status === "running"} className={btnCls}>
+          {status === "running" ? "Thinking…" : "Suggest matches"}
+        </button>
+      </div>
+      {status === "error" && <p className="mt-3 text-sm text-red-400">{message}</p>}
+      {status !== "error" && message && <p className="mt-3 text-xs text-[#f8f8f8]/50">{message}</p>}
+      {results.length > 0 && (
+        <ul className="mt-4 space-y-2">
+          {results.map((m) => (
+            <li
+              key={m.reviewer_id}
+              className="flex items-start justify-between gap-3 rounded-md border border-[#f8f8f8]/12 p-3"
+            >
+              <div className="min-w-0">
+                <div className="flex items-center gap-2">
+                  <span className="text-sm font-medium">{m.name}</span>
+                  <span className="rounded-full border border-[#f8f8f8]/25 px-2 py-0.5 text-[11px] tabular-nums text-[#f8f8f8]/70">
+                    {m.score}
+                  </span>
+                </div>
+                <p className="mt-1 text-xs text-[#f8f8f8]/60">{m.reason}</p>
+              </div>
+              <button
+                type="button"
+                disabled={created.has(m.reviewer_id)}
+                onClick={() => create(m.reviewer_id)}
+                className="shrink-0 rounded-md border border-[#f8f8f8]/25 px-3 py-1.5 text-xs hover:bg-[#f8f8f8]/5 disabled:opacity-40"
+              >
+                {created.has(m.reviewer_id) ? "✓ added" : "Create match"}
+              </button>
+            </li>
+          ))}
+        </ul>
+      )}
+    </form>
   )
 }
 
@@ -457,6 +584,7 @@ function ReviewersTab({
   setReviewers: (r: AdminReviewer[]) => void
 }) {
   const [search, setSearch] = useState("")
+  const [openTags, setOpenTags] = useState<string | null>(null)
 
   async function run(e?: React.FormEvent) {
     e?.preventDefault()
@@ -497,6 +625,22 @@ function ReviewersTab({
               </div>
             )}
             {r.notes && <p className="mt-2 text-xs text-[#f8f8f8]/50">Note: {r.notes}</p>}
+            <div className="mt-3 border-t border-[#f8f8f8]/[0.08] pt-3">
+              <div className="flex items-center justify-between gap-2">
+                <TagChips tags={r.tags} empty="No tags yet" />
+                <button
+                  onClick={() => setOpenTags(openTags === r.id ? null : r.id)}
+                  className="shrink-0 text-xs text-[#f8f8f8]/40 hover:text-[#f8f8f8]"
+                >
+                  {openTags === r.id ? "close" : "manage tags"}
+                </button>
+              </div>
+              {openTags === r.id && (
+                <div className="mt-3">
+                  <AdminEntityTags kind="reviewer" id={r.id} initialTags={r.tags} />
+                </div>
+              )}
+            </div>
           </li>
         ))}
       </ul>
@@ -520,6 +664,7 @@ function BrandsTab({
 }) {
   const [search, setSearch] = useState("")
   const [adding, setAdding] = useState(false)
+  const [openTags, setOpenTags] = useState<string | null>(null)
 
   async function run(e?: React.FormEvent) {
     e?.preventDefault()
@@ -577,6 +722,22 @@ function BrandsTab({
             )}
             <div className="mt-2 text-xs text-[#f8f8f8]/40">
               {[b.contact_name, b.contact_role].filter(Boolean).join(", ")}
+            </div>
+            <div className="mt-3 border-t border-[#f8f8f8]/[0.08] pt-3">
+              <div className="flex items-center justify-between gap-2">
+                <TagChips tags={b.tags} empty="No tags yet" />
+                <button
+                  onClick={() => setOpenTags(openTags === b.id ? null : b.id)}
+                  className="shrink-0 text-xs text-[#f8f8f8]/40 hover:text-[#f8f8f8]"
+                >
+                  {openTags === b.id ? "close" : "manage tags"}
+                </button>
+              </div>
+              {openTags === b.id && (
+                <div className="mt-3">
+                  <AdminEntityTags kind="brand" id={b.id} initialTags={b.tags} />
+                </div>
+              )}
             </div>
           </li>
         ))}
