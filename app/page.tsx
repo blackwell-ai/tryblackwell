@@ -22,6 +22,12 @@ export default function Home() {
             <path d="M1300 1050 c-19 -19 -20 -33 -20 -269 0 -303 -9 -284 150 -329 330 -94 645 -144 997 -158 142 -6 160 -5 176 10 15 16 17 45 17 280 0 202 -3 266 -13 280 -12 16 -37 20 -179 27 -365 18 -670 64 -966 145 -68 19 -128 34 -133 34 -5 0 -18 -9 -29 -20z" />
           </g>
         </svg>
+        <a
+          href="/login"
+          className="absolute bottom-6 text-[11px] uppercase tracking-[0.25em] text-[#f8f8f8]/30 transition-colors hover:text-[#f8f8f8]/70"
+        >
+          Sign in
+        </a>
       </div>
     </div>
   )

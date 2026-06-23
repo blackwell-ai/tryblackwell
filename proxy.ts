@@ -34,7 +34,11 @@ export async function proxy(request: NextRequest) {
     data: { user },
   } = await supabase.auth.getUser()
 
-  if (!user && request.nextUrl.pathname.startsWith("/portal")) {
+  // Auth gate for every signed-in surface. Role-level authorization (admin vs
+  // brand vs reviewer) is enforced in each page + the SECURITY DEFINER RPCs;
+  // here we only require *a* session.
+  const gated = ["/portal", "/brand", "/admin", "/dashboard"]
+  if (!user && gated.some((p) => request.nextUrl.pathname.startsWith(p))) {
     const url = request.nextUrl.clone()
     url.pathname = "/login"
     return NextResponse.redirect(url)
