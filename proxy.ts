@@ -7,15 +7,7 @@ import { NextResponse, type NextRequest } from "next/server"
  * expired tokens are rotated before Server Components read them.
  */
 export async function proxy(request: NextRequest) {
-  // The storefront brand is shelved. Keep the /shop code in the repo and usable
-  // locally, but make it private on the deployed build: 404 in production.
   const path = request.nextUrl.pathname
-  if (
-    process.env.NODE_ENV === "production" &&
-    (path === "/shop" || path.startsWith("/shop/"))
-  ) {
-    return new NextResponse("Not found", { status: 404 })
-  }
 
   let response = NextResponse.next({ request })
 

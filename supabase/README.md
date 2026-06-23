@@ -1,7 +1,8 @@
-# Blackwell — System of Record (Supabase)
+# Blackwell — Database (Supabase)
 
-This is **Layer 0**: the source-of-truth database. Everything else (storefront,
-pricing, the Stripe webhook, the future reorder agent) reads from and writes to it.
+The source-of-truth database for the marketplace. The app (marketing site,
+reviewer portal, brand + admin consoles, AI matching) reads from and writes to
+it through the typed Supabase clients in `app/lib/supabase/`.
 
 ## Layout
 
@@ -9,77 +10,47 @@ pricing, the Stripe webhook, the future reorder agent) reads from and writes to 
 supabase/
   config.toml          # local stack config (supabase init)
   migrations/          # ordered SQL, applied in filename order
-    ...01_extensions_and_helpers.sql
-    ...02_enums.sql
-    ...03_products.sql
-    ...04_variants.sql        (variants + variant_costs)
-    ...05_inventory.sql       (inventory + stock_movements + trigger)
-    ...06_suppliers.sql
-    ...07_customers.sql       (customers + addresses)
-    ...08_orders.sql          (orders + order_items)
-    ...09_finance.sql         (financial_transactions)
-    ...10_views.sql           (storefront_catalog, product_availability)
-    ...11_rls.sql             (RLS: default deny + policies)
-scripts/seed-catalog.ts # loads the 12 products / 127 variants from app/shop/products.ts
+    20260618000001_extensions_and_helpers.sql   # shared foundation (below)
+    20260622000001_marketplace_reviewers_brands.sql   # schema + tables + RLS
+    20260622000002_marketplace_import_fns.sql         # service-role importer RPCs
+    20260622000003_auth_bind_reviewers.sql
+    20260622000004_marketplace_matches_and_admin.sql
+    20260622000005_marketplace_portal_rpcs.sql
+    20260622000006_demo_preview_seed.sql
+    20260622000007_drop_reviewer_platform_followers.sql
+    20260622000008_reviewer_oauth_age_gate.sql
+    20260622000009_tags_taxonomy.sql
+    20260622000010_ai_synthesis_input.sql
+scripts/migrate-giftly.ts   # streams reviewers/brands from Giftly via importer RPCs
 ```
+
+## Shared foundation
+
+`20260618000001_extensions_and_helpers.sql` runs first so every later migration
+can rely on it:
+
+- **`citext`** — case-insensitive text, used for email columns.
+- **`pgcrypto`** — provides `gen_random_uuid()` for UUID primary keys.
+- **`public.set_updated_at()`** — trigger function that stamps `updated_at = now()`
+  on every UPDATE; attached to every table with an `updated_at` column.
 
 ## Local workflow
 
 ```bash
 supabase start          # boot local stack + apply migrations
-supabase db reset       # rebuild from scratch (migrations + seed)
-SUPABASE_URL=http://127.0.0.1:54321 \
-  SUPABASE_SERVICE_ROLE_KEY=<local service role> \
-  pnpm seed             # load the catalog
+supabase db reset       # rebuild from scratch (migrations)
 pnpm gen:types          # regenerate app/lib/database.types.ts (needs --linked)
+pnpm migrate:giftly     # sync reviewers/brands from Giftly (see below)
 ```
-
-## Tables
-
-| Pillar | Tables |
-|---|---|
-| Catalog | `products`, `product_images`, `variants`, `variant_costs`, `inventory`, `stock_movements` |
-| Customers | `customers`, `addresses` |
-| Finances | `orders`, `order_items`, `financial_transactions` |
-| Forward-compat | `suppliers` |
-| Read views | `storefront_catalog`, `product_availability` |
 
 ## Conventions
 
-- **Money:** `bigint` minor units (cents), never floats. Always paired with `currency char(3)` (e.g. `'usd'`).
 - **PKs:** `uuid` default `gen_random_uuid()`.
-- **Timestamps:** `created_at` / `updated_at` on every table; `updated_at` maintained by the `set_updated_at()` trigger.
-- **Closed sets:** Postgres enums (see `..._enums.sql`).
-- **Soft archive:** `status` columns, not hard deletes (catalog + orders).
-- **Inventory:** `stock_movements` is the append-only source of truth; `inventory` is a trigger-maintained snapshot.
+- **Timestamps:** `created_at` / `updated_at` on every table; `updated_at`
+  maintained by the `set_updated_at()` trigger.
+- **Email:** `citext` columns.
 
-## Integration contracts
-
-### Pricing teammate
-- **Owns:** `variants.price_amount` (bigint, minor units) + `variants.currency`.
-- `price_amount = NULL` ⇒ "not priced yet" ⇒ storefront shows NOT PRICED YET and checkout is blocked.
-- Write the two columns together. Do not store dollars/floats.
-
-### Stripe-webhook teammate
-- **Owns:** the webhook handler (runs with the **service-role** key; bypasses RLS).
-- On `checkout.session.completed`, populate:
-  - `customers` (upsert by `email`; set `stripe_customer_id`).
-  - `orders` (upsert by `stripe_checkout_session_id` — idempotency): status `paid`, totals, `currency`, `shipping_address` (jsonb), `stripe_payment_intent_id`, `placed_at`, `customer_id`, `email`.
-  - `order_items` (per line): `variant_id` (resolve from the SKU passed at checkout), `sku`, `product_name`, `variant_label`, `quantity`, `unit_price_amount` (snapshot), `unit_cost_amount` (snapshot of latest `variant_costs`), `currency`, `line_total_amount`.
-  - `stock_movements` (per line): `type='sale'`, `bucket='on_hand'`, `qty_delta = -quantity`, `order_id`, `created_by='webhook'` (trigger decrements `inventory`).
-  - `financial_transactions`: one `order_revenue` (+total); a `stripe_fee` (−fee) when available; later `refund` (−) on refund events.
-- **Prerequisite (app change, not built here):** the checkout route must pass the **variant SKU / id** + quantity into the Stripe session so the webhook can map line items back to SKUs. Today it sends only a display string with quantity hardcoded to 1.
-
-## Security (RLS)
-
-Default deny. `anon` and `authenticated` can only **read active catalog**
-(`products`, `product_images`, `variants`, the two views). A logged-in customer
-can read **only their own** `customers` / `addresses` / `orders` / `order_items`.
-`variant_costs`, `inventory`, `stock_movements`, `suppliers`, and
-`financial_transactions` are **service-role only** — cost, finance, inventory
-numbers, and PII are never exposed to the public role.
-
-## Layer 1 — Marketplace (reviewers + brands)
+## Marketplace (reviewers + brands)
 
 The `marketplace` schema is the two-sided directory for the GEO marketplace,
 migrated from Giftly. It is **service-role only** and **not exposed to the Data
