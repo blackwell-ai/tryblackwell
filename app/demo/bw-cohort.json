@@ -20,7 +20,7 @@
  "winner": {
   "product": "Maybelline Super Stay Full Coverage",
   "brand": "Maybelline",
-  "title": "Super Stay Full Coverage Foundation",
+  "title": "Super Stay Full Coverage",
   "price": 15,
   "image": "/cgpt/real_files/ZGHPo6AYplWbl6Vy_jpm7gBT6zrhXxlufHnXgo9lytZY3RwBumevXzHUZp-.webp",
   "rank": 1,
@@ -169,7 +169,7 @@
   {
    "product": "NARS Soft Matte Complete",
    "brand": "NARS",
-   "title": "Soft Matte Complete Foundation",
+   "title": "Soft Matte Complete",
    "price": 52,
    "image": null,
    "rank": 2,
@@ -317,7 +317,7 @@
   {
    "product": "L'Oreal Infallible Fresh Wear",
    "brand": "L’Oréal Paris",
-   "title": "Infallible Fresh Wear 32HR Foundation",
+   "title": "Infallible Fresh Wear",
    "price": 16,
    "image": "/cgpt/real_files/wWdIg6co8oykCZoAiqXsQmecLEDLD3sYmSXiUnwVJ5IQr66Ut5Fglnlz3T4.webp",
    "rank": 3,
@@ -447,7 +447,7 @@
   {
    "product": "Revlon ColorStay",
    "brand": "Revlon",
-   "title": "ColorStay Foundation for Combination/Oily",
+   "title": "ColorStay (Oily/Combo)",
    "price": 15,
    "image": "/cgpt/real_files/NEVW63ysLKewIVHgZJUjtMg6iAFKiKjzKx4eIZEKBEG-rUSmfH536Dk_Q_e.webp",
    "rank": 4,
