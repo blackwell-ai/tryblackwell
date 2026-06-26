@@ -1,7 +1,9 @@
 import { NextResponse } from "next/server"
 import { createClient } from "@supabase/supabase-js"
 
-const LEADS_TO = "founders@tryblackwell.com"
+// Resend test mode only delivers to the account owner (armaan@tryblackwell.com).
+// Set LEADS_TO once tryblackwell.com is a verified domain to send anywhere.
+const LEADS_TO = process.env.LEADS_TO || "armaan@tryblackwell.com"
 
 export async function POST(req: Request) {
   let body: { brandUrl?: string; email?: string }
