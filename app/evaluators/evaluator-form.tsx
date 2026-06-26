@@ -25,7 +25,6 @@ export function EvaluatorForm() {
   const [name, setName] = useState("")
   const [email, setEmail] = useState("")
   const [products, setProducts] = useState<string[]>([])
-  const [address, setAddress] = useState("")
   const [status, setStatus] = useState<"idle" | "loading" | "done" | "error">("idle")
   const [err, setErr] = useState("")
 
@@ -40,7 +39,7 @@ export function EvaluatorForm() {
     const res = await fetch("/api/evaluators", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ name, email, products: products.join(", "), address }),
+      body: JSON.stringify({ name, email, products: products.join(", ") }),
     })
     if (res.ok) {
       setStatus("done")
@@ -104,17 +103,6 @@ export function EvaluatorForm() {
             )
           })}
         </div>
-      </div>
-
-      <div>
-        <label className={labelCls}>Shipping address</label>
-        <textarea
-          className={`${inputCls} mt-2 resize-none`}
-          rows={3}
-          value={address}
-          onChange={(e) => setAddress(e.target.value)}
-          placeholder="Where products ship"
-        />
       </div>
 
       <button
