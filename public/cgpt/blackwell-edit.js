@@ -13,8 +13,8 @@
     var key = (r.brand + " " + r.title).toLowerCase();
     var sub = key.indexOf("super stay") + 1 ? "super stay" : key.indexOf("infallible") + 1 ? "infallible" : key.indexOf("revlon") + 1 ? "revlon" : key.indexOf("fenty") + 1 ? "fenty" : "mac studio fix";
     return '<div class="shrink-0 snap-start basis-[calc((100%-2rem)/3)]"><div class="h-full w-full cursor-pointer group"><div class="group h-full"><div class="flex pb-2 flex-col gap-2">' +
-      '<div class="relative aspect-[13/16] w-full overflow-clip rounded-xl bg-[#F3F3F3] dark:bg-[#F3F3F3]" style="background-color:rgb(239,239,239)">' +
-      '<div class="h-full w-full" style="display:flex;align-items:center;justify-content:center;mix-blend-mode:darken"><img class="m-0 block" style="max-width:86%;max-height:86%;object-fit:contain;mix-blend-mode:darken" alt="' + r.brand + '" src="' + imgFor(sub) + '"></div></div>' +
+      '<div class="relative w-full overflow-hidden rounded-xl" style="aspect-ratio:13/16;background:#F3F3F3">' +
+      '<img class="m-0 block" style="position:absolute;inset:0;width:100%;height:100%;object-fit:contain;padding:11%;mix-blend-mode:darken" alt="' + r.brand + '" src="' + imgFor(sub) + '"></div>' +
       '<div class="flex flex-col px-1" style="height:104px">' +
       '<div class="line-clamp-3 font-medium text-sm leading-[1.25]">' + r.brand + " " + r.title + '</div>' +
       '<div class="text-token-text-secondary text-[13px]" style="margin-top:3px">$' + r.price + ' · ' + r.cohort.n + ' tested for your skin</div>' +
