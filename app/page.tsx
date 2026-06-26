@@ -21,7 +21,7 @@ export default function Home() {
             <img
               src="/well.png"
               alt="Blackwell"
-              className="mx-auto mt-12 h-auto w-[220px] mix-blend-lighten invert sm:w-[300px] lg:hidden"
+              className="mx-auto mt-12 h-auto w-[240px] mix-blend-lighten invert sm:w-[300px] lg:hidden"
             />
 
             <hr className="mt-10 border-0 border-t border-[#262626]" />
