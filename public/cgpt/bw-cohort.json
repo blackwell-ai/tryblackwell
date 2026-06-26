@@ -1,0 +1,596 @@
+{
+ "profile": {
+  "summary": "Oily, acne-prone · warm-olive ~NC42 · wedding in 3 weeks",
+  "attrs": [
+   "Oily, acne-prone",
+   "Warm-olive · ~NC42",
+   "Combination (oily T-zone)",
+   "Needs 10-hour wear",
+   "Can’t oxidize orange",
+   "Has to photograph well",
+   "Budget ~$40"
+  ]
+ },
+ "corpus": {
+  "videos": 246,
+  "products": 28,
+  "cohort_total": 176,
+  "sponsored_excluded": 17
+ },
+ "winner": {
+  "product": "Maybelline Super Stay Full Coverage",
+  "brand": "Maybelline",
+  "title": "Super Stay Full Coverage Foundation",
+  "price": 15,
+  "image": "/cgpt/real_files/ZGHPo6AYplWbl6Vy_jpm7gBT6zrhXxlufHnXgo9lytZY3RwBumevXzHUZp-.webp",
+  "rank": 1,
+  "cohort": {
+   "n": 18,
+   "matte": 14,
+   "broke": 0,
+   "oxid": 2,
+   "pos": 18,
+   "avg_hrs": 9.2,
+   "rep_yes": 6,
+   "rep_n": 0,
+   "matte_pct": 78,
+   "rep_pct": 100
+  },
+  "videos": [
+   {
+    "vid": "G3-9Wn-n-kk",
+    "channel": "Tati",
+    "skin": "combination leaning dry",
+    "acne": false,
+    "matte": "mostly",
+    "hrs": 8,
+    "quote": "I really like this Foundation... it is so longwearing... things are still looking pretty good considering it is so late and I have not repow"
+   },
+   {
+    "vid": "FBv3ESuhRT0",
+    "channel": "Sam Robinson",
+    "skin": "combination",
+    "acne": true,
+    "matte": "not_tested",
+    "hrs": null,
+    "quote": "Did she? Did she not? Pick another winner. This is perfect."
+   },
+   {
+    "vid": "mJAhwpmmi0s",
+    "channel": "Jazzi Filipek",
+    "skin": "oily",
+    "acne": true,
+    "matte": "mostly",
+    "hrs": 11,
+    "quote": "I loved how full coverage it was without looking and feeling super thick and mask like on my skin"
+   },
+   {
+    "vid": "P7FOFT4gjVU",
+    "channel": "Risa Does Makeup",
+    "skin": "oily",
+    "acne": false,
+    "matte": "no",
+    "hrs": 12,
+    "quote": "This 12-hour wear test told me that both of these foundations are extremely longwearing. I honestly have not lost any coverage."
+   },
+   {
+    "vid": "gk-OpHBmJkY",
+    "channel": "Lavinia Rusanda",
+    "skin": "combination",
+    "acne": true,
+    "matte": "mostly",
+    "hrs": 13,
+    "quote": "I do get the Lumi matness that they were claiming because it is actually just looking so like a glow from within that's not super dewy... I "
+   },
+   {
+    "vid": "_2ETE82ebdQ",
+    "channel": "Jessica Romua ",
+    "skin": "oily",
+    "acne": false,
+    "matte": "mostly",
+    "hrs": 12,
+    "quote": "\"it stayed in place all throughout the face you can see it still is looking really nice in place even though it is like I said 10:17 at nigh"
+   },
+   {
+    "vid": "ok-VFsWjlAo",
+    "channel": "makeupwithalixkate",
+    "skin": "oily",
+    "acne": true,
+    "matte": "mostly",
+    "hrs": 4,
+    "quote": "Honestly this is one of the most impressive foundations that I've tried doesn't really start to show my oils through after 4 hours"
+   },
+   {
+    "vid": "eztyWdY1bTU",
+    "channel": "Mufidah Mukhtar",
+    "skin": "oily-combination",
+    "acne": false,
+    "matte": "mostly",
+    "hrs": 6,
+    "quote": "Maybelline SuperStay Lumi Matte is a go for me. I love it so much."
+   },
+   {
+    "vid": "Z33coYen588",
+    "channel": "Steph J",
+    "skin": "oily",
+    "acne": false,
+    "matte": "mostly",
+    "hrs": null,
+    "quote": "I do feel like the dry down is giving me more matte. I feel like it was giving me more dewy earlier, but right now it's really giving that m"
+   },
+   {
+    "vid": "3BatzP9f-58",
+    "channel": "Prakriti Singh",
+    "skin": "combination",
+    "acne": false,
+    "matte": "mostly",
+    "hrs": 6,
+    "quote": "I like the finish of this Foundation it's definitely a clean girl Foundation this is so lightweight on the skin it feels like nothing"
+   },
+   {
+    "vid": "_oVimRAEAj8",
+    "channel": "All Beauty By Sarah",
+    "skin": "combination",
+    "acne": true,
+    "matte": "mostly",
+    "hrs": 9,
+    "quote": "It's not heavy, it is not cakey, it doesn't feel wet, it doesn't feel sticky, it sets to this like very comfortable matte but not really mat"
+   },
+   {
+    "vid": "kq3QOLC0Nns",
+    "channel": "Angela Lor",
+    "skin": "oily",
+    "acne": true,
+    "matte": "mostly",
+    "hrs": null,
+    "quote": "I am actually wearing this foundation today, but I don't ever really need to go in with concealer on my acne scars. One coat of this is more"
+   },
+   {
+    "vid": "oAfAWGJ32aI",
+    "channel": "ugly elle",
+    "skin": "oily",
+    "acne": true,
+    "matte": "not_tested",
+    "hrs": null,
+    "quote": "Honestly this is probably the first Foundation that I feel like has matched me nearly almost perfectly"
+   },
+   {
+    "vid": "d2GAHN2etLM",
+    "channel": "Slashed Beauty",
+    "skin": "combination dry leaning",
+    "acne": true,
+    "matte": "mostly",
+    "hrs": 10,
+    "quote": "the Maybelline foundation did not settle into my laugh lines as much as the elf Foundation did...this side does look better in terms of oil "
+   }
+  ]
+ },
+ "runner_ups": [
+  {
+   "product": "NARS Soft Matte Complete",
+   "brand": "NARS",
+   "title": "Soft Matte Complete Foundation",
+   "price": 52,
+   "image": null,
+   "rank": 2,
+   "cohort": {
+    "n": 20,
+    "matte": 20,
+    "broke": 0,
+    "oxid": 3,
+    "pos": 19,
+    "avg_hrs": 8.9,
+    "rep_yes": 9,
+    "rep_n": 0,
+    "matte_pct": 100,
+    "rep_pct": 100
+   },
+   "videos": [
+    {
+     "vid": "tlVSZdZEFyw",
+     "channel": "Thrift Thick",
+     "skin": "oily",
+     "acne": true,
+     "matte": "mostly",
+     "hrs": 16,
+     "quote": "It just looks so good on the skin so good and it has felt so lightweight today"
+    },
+    {
+     "vid": "SpBCiN4xKz8",
+     "channel": "Kirsty Lo",
+     "skin": "oily",
+     "acne": true,
+     "matte": "mostly",
+     "hrs": 12,
+     "quote": "\"The double wear has done so well as per usual it works really incredibly well on my oily skin it looks natural it looks flawless\""
+    },
+    {
+     "vid": "gIwF13_m2rU",
+     "channel": "Maryam Maquillage",
+     "skin": "oily",
+     "acne": true,
+     "matte": "mostly",
+     "hrs": null,
+     "quote": "This definitely dries down to a matte, even more matte than the Natural Radiant... It almost doesn't look like I have oily skin."
+    },
+    {
+     "vid": "NzVg3uNdNp4",
+     "channel": "Magdaline Janet",
+     "skin": "oily",
+     "acne": false,
+     "matte": "mostly",
+     "hrs": 11,
+     "quote": "It feels very comfortable, definitely lightweight, doesn't feel heavy or thick, and after about 11 hours with no touch ups, it looks okay wi"
+    },
+    {
+     "vid": "LlqNMix7Pbs",
+     "channel": "Hannah With The Lipstick",
+     "skin": "oily",
+     "acne": true,
+     "matte": "mostly",
+     "hrs": 4,
+     "quote": "i honestly think it's worth the hype"
+    },
+    {
+     "vid": "nqbC1wYK3qc",
+     "channel": "BiancaReneeToday",
+     "skin": "oily",
+     "acne": false,
+     "matte": "mostly",
+     "hrs": 6,
+     "quote": "i knew i am currently in love with the nars matte foundation if you have oily skin i definitely recommend you try it"
+    },
+    {
+     "vid": "_fKCWy3UXME",
+     "channel": "Jessica Romua ",
+     "skin": "oily",
+     "acne": false,
+     "matte": "mostly",
+     "hrs": 8,
+     "quote": "\"I feel like the NARS one, once it sets, picks up more orangey. The Dior one does oxidize a little bit, but it still sets neutral.\""
+    },
+    {
+     "vid": "mavnGbUwClM",
+     "channel": "Nikkia Joy",
+     "skin": "oily",
+     "acne": false,
+     "matte": "mostly",
+     "hrs": 6,
+     "quote": "i just can't get over the lack of shine like this is so bizarre"
+    },
+    {
+     "vid": "ZeYHiS0T_sM",
+     "channel": "Allie Glines",
+     "skin": "oily",
+     "acne": false,
+     "matte": "mostly",
+     "hrs": null,
+     "quote": "Even though it says matte, as you can see hopefully, it's not flat... it's not overly glowy, even though I didn't set it, at least so far."
+    },
+    {
+     "vid": "oGMLYDglPp4",
+     "channel": "Samantha Jane",
+     "skin": "normal/combination",
+     "acne": true,
+     "matte": "mostly",
+     "hrs": 8,
+     "quote": "It did not oxidize... no major transferring... it's a little bit shiny but nothing crazy and I think it looks great"
+    },
+    {
+     "vid": "K_ZXuTH854k",
+     "channel": "KWKosta",
+     "skin": "oily",
+     "acne": true,
+     "matte": "mostly",
+     "hrs": 13,
+     "quote": "this is my final check-in hour number 13. and i still have this foundation on my face... for me is a big thumbs up i really like it highly r"
+    },
+    {
+     "vid": "DF-ir8j2VHA",
+     "channel": "Madeline Williams",
+     "skin": "oily",
+     "acne": true,
+     "matte": "mostly",
+     "hrs": 6,
+     "quote": "i have loved the finish of this foundation so much that like i don't even mind that it was a little bit more oily during the six hour work"
+    },
+    {
+     "vid": "XxheWuoPKKQ",
+     "channel": "Olotu Funke",
+     "skin": "oily",
+     "acne": true,
+     "matte": "yes",
+     "hrs": null,
+     "quote": "I actually quite like the foundation I like the texture and the coverage ... it does give a matte finish I don't feel like I have a matte pr"
+    },
+    {
+     "vid": "WftrUdS8TBs",
+     "channel": "Mixed Makeup",
+     "skin": "oily",
+     "acne": false,
+     "matte": "mostly",
+     "hrs": null,
+     "quote": "this is a great formula if you do have oilier skin I love to apply this with either if I want more of a natural coverage for oily skin I'll "
+    }
+   ]
+  },
+  {
+   "product": "L'Oreal Infallible Fresh Wear",
+   "brand": "L’Oréal Paris",
+   "title": "Infallible Fresh Wear 32HR Foundation",
+   "price": 16,
+   "image": "/cgpt/real_files/wWdIg6co8oykCZoAiqXsQmecLEDLD3sYmSXiUnwVJ5IQr66Ut5Fglnlz3T4.webp",
+   "rank": 3,
+   "cohort": {
+    "n": 12,
+    "matte": 10,
+    "broke": 2,
+    "oxid": 0,
+    "pos": 8,
+    "avg_hrs": 11.3,
+    "rep_yes": 6,
+    "rep_n": 1,
+    "matte_pct": 83,
+    "rep_pct": 86
+   },
+   "videos": [
+    {
+     "vid": "jpk3BLDG5QM",
+     "channel": "Sam Robinson",
+     "skin": "oily",
+     "acne": false,
+     "matte": "mostly",
+     "hrs": 10,
+     "quote": "Happy to report that there is no white cast... Looks good. And the shade hasn't oxidized... I'm looking super smooth, super fresh. Coverage "
+    },
+    {
+     "vid": "M0ENurE5og8",
+     "channel": "Magdaline Janet",
+     "skin": "oily",
+     "acne": false,
+     "matte": "mostly",
+     "hrs": 12,
+     "quote": "i do think the infallible freshware powder foundation worked pretty well for a 12-hour day ... it doesn't look patchy it doesn't look like i"
+    },
+    {
+     "vid": "uCrr1aVj7cA",
+     "channel": "Magdaline Janet",
+     "skin": "oily",
+     "acne": false,
+     "matte": "mostly",
+     "hrs": null,
+     "quote": "the makeup looks a lot better than what we started off... honestly I really like how this looks"
+    },
+    {
+     "vid": "LLedKaF17i0",
+     "channel": "Sasha Stockwell",
+     "skin": "oily",
+     "acne": true,
+     "matte": "mostly",
+     "hrs": 10.5,
+     "quote": "for a liquid foundation it feels really light on my skin when they say freshware and it's lightweight and all that they weren't lying"
+    },
+    {
+     "vid": "Ej0sFD1_K0g",
+     "channel": "Magdaline Janet",
+     "skin": "oily",
+     "acne": false,
+     "matte": "mostly",
+     "hrs": 10,
+     "quote": "10 hour mark... it's holding up extremely well ... no breakage, no separation on the skin ... both foundations are very good and durable ..."
+    },
+    {
+     "vid": "nilgHbmn36I",
+     "channel": "KWKosta",
+     "skin": "oily",
+     "acne": true,
+     "matte": "mostly",
+     "hrs": 12,
+     "quote": "I love this foundation like I'm so surprised by a serious couple of hours... it blows my mind like I would have never have guessed of a worn"
+    },
+    {
+     "vid": "2bJG5LPbHNw",
+     "channel": "Sasha Stockwell",
+     "skin": "oily",
+     "acne": true,
+     "matte": "mostly",
+     "hrs": 10,
+     "quote": "Yes, I'm shiny right now but the makeup held up, you know sometimes you wear foundation and after 10 hours your oils come through and your o"
+    },
+    {
+     "vid": "q65Xj89p-Ps",
+     "channel": "Jessica Romua ",
+     "skin": "oily",
+     "acne": false,
+     "matte": "mostly",
+     "hrs": 7.5,
+     "quote": "I feel like this does a good job of absorbing any extra oils and is great for like a touch-up type of finish"
+    },
+    {
+     "vid": "K-oh2oY16jI",
+     "channel": "Stephanie Marie",
+     "skin": "combination oily sensitive",
+     "acne": false,
+     "matte": "no",
+     "hrs": 24,
+     "quote": "I like the finish but I do have to check in every 3 or 4 hours and blot because I get some breakthrough shine. I'd probably not repurchase b"
+    },
+    {
+     "vid": "7WXkWz60V-Q",
+     "channel": "Doctor Anne",
+     "skin": "combination",
+     "acne": true,
+     "matte": "no",
+     "hrs": 6,
+     "quote": "the only skin type i would not recommend this to is very oily ones as my natural oils did start to break it up at around four hour marks"
+    },
+    {
+     "vid": "RUIROYwrtjM",
+     "channel": "Emily Noel",
+     "skin": "combination",
+     "acne": true,
+     "matte": "mostly",
+     "hrs": null,
+     "quote": "I haven't been quite so thrilled with my staying power on it... It's very thin... It does feel super lightweight... but I've put it through "
+    },
+    {
+     "vid": "_BU7m9saDWo",
+     "channel": "It'sGlamTime",
+     "skin": "oily",
+     "acne": true,
+     "matte": "mostly",
+     "hrs": null,
+     "quote": "It has like a satin soft matte finish it does not feel like I'm wearing any foundation like my skin it feels really really good at which I t"
+    }
+   ]
+  },
+  {
+   "product": "Revlon ColorStay",
+   "brand": "Revlon",
+   "title": "ColorStay Foundation for Combination/Oily",
+   "price": 15,
+   "image": "/cgpt/real_files/NEVW63ysLKewIVHgZJUjtMg6iAFKiKjzKx4eIZEKBEG-rUSmfH536Dk_Q_e.webp",
+   "rank": 4,
+   "cohort": {
+    "n": 15,
+    "matte": 10,
+    "broke": 1,
+    "oxid": 1,
+    "pos": 11,
+    "avg_hrs": 10.5,
+    "rep_yes": 7,
+    "rep_n": 2,
+    "matte_pct": 67,
+    "rep_pct": 78
+   },
+   "videos": [
+    {
+     "vid": "YRBBRKJyXv8",
+     "channel": "Nikkia Joy",
+     "skin": "oily",
+     "acne": false,
+     "matte": "mostly",
+     "hrs": 15,
+     "quote": "my natural oils have come through this foundation is looking a whole lot nicer on my skin everything has really smooth out that cakey not re"
+    },
+    {
+     "vid": "0m8pS5-3nJM",
+     "channel": "Samantha Jane",
+     "skin": "oily",
+     "acne": false,
+     "matte": "mostly",
+     "hrs": 12,
+     "quote": "I think it wore beautifully... oils started to come through around 12 or 1 which is pretty normal for me... I'm just really loving this... o"
+    },
+    {
+     "vid": "QoGg4pmm2ww",
+     "channel": "Stephanie Holiday",
+     "skin": "oily",
+     "acne": true,
+     "matte": "yes",
+     "hrs": 8,
+     "quote": "the foundation is still very matte and still very much there i mean the coverage is still there nothing has transferred off of my nose"
+    },
+    {
+     "vid": "-7BzTN31RrM",
+     "channel": "Nana Beauty",
+     "skin": "combination",
+     "acne": true,
+     "matte": "mostly",
+     "hrs": null,
+     "quote": "This Revlon Foundation absolutely love it absolutely love it I love the old formula this is the new formula both of them are the same to me "
+    },
+    {
+     "vid": "CCJ8BzZhvjw",
+     "channel": "Nadia Vega",
+     "skin": "combination",
+     "acne": true,
+     "matte": "mostly",
+     "hrs": 5,
+     "quote": "For 14.99 I feel like it's pretty good pretty good... if I were to rank this right now I would give it a 7 out of 10... after wear, maybe li"
+    },
+    {
+     "vid": "s4hmLM_rgHI",
+     "channel": "Mena_Adubea",
+     "skin": "combination and oily",
+     "acne": false,
+     "matte": "no",
+     "hrs": 15,
+     "quote": "I think that it wore beautifully ... This is not giving me matte it's giving me natural coverage and I'm okay with that but I think that thi"
+    },
+    {
+     "vid": "HyfksXtuLc8",
+     "channel": "Kelechi R Eluma ",
+     "skin": "oily",
+     "acne": false,
+     "matte": "no",
+     "hrs": 7,
+     "quote": "I have oily skin and I am in love with this Foundation... to me the medium coverage is really really good... you can see my face looks hydra"
+    },
+    {
+     "vid": "XKrHZiQDccI",
+     "channel": "Leximarcellaa",
+     "skin": "combination/oily",
+     "acne": true,
+     "matte": "mostly",
+     "hrs": null,
+     "quote": "I like the Revlon color stay is great for oily skin and then of course the acne from elf is really good because it actually has like salicyl"
+    },
+    {
+     "vid": "gi4EaeXZFIk",
+     "channel": "Jc Fabuleux",
+     "skin": "oily",
+     "acne": false,
+     "matte": "no",
+     "hrs": 10,
+     "quote": "After 10 hours guys, the pigmentation is still there, the coverage is good, and it does not break apart even after working out."
+    },
+    {
+     "vid": "iAVHeckHtHg",
+     "channel": "Deanna Borocz",
+     "skin": "oily",
+     "acne": true,
+     "matte": "mostly",
+     "hrs": 8,
+     "quote": "the first like five six hours are beautiful it looks so good it keeps your makeup on amazingly"
+    },
+    {
+     "vid": "aHOel2FccdI",
+     "channel": "Stephanie Alford",
+     "skin": "oily combo",
+     "acne": true,
+     "matte": "mostly",
+     "hrs": null,
+     "quote": "the mattifying effect in it is crazy awesome I mean this will mattify your skin ... it really does remind me of the Covergirl one except I f"
+    },
+    {
+     "vid": "QUJEoWWyp-k",
+     "channel": "Thrift Thick",
+     "skin": "oily",
+     "acne": true,
+     "matte": "mostly",
+     "hrs": 12,
+     "quote": "i feel like my skin didn't get hardly as oily as it typically does throughout a day of wear even on a low-key day like this"
+    },
+    {
+     "vid": "EtJh-k9t_tM",
+     "channel": "Anne Clutz",
+     "skin": "oily",
+     "acne": true,
+     "matte": "no",
+     "hrs": 12,
+     "quote": "Mas maganda pa rin talaga to (Revlon) kesa dito (L'Oreal). Mas oily talaga to (L'Oreal)."
+    },
+    {
+     "vid": "cA7_54nTyfs",
+     "channel": "SariReanna",
+     "skin": "oily",
+     "acne": true,
+     "matte": "not_tested",
+     "hrs": null,
+     "quote": "I ended up having an allergic reaction to it I broke out in a rash there was like tiny little irritated red bumps in like little clusters al"
+    }
+   ]
+  }
+ ]
+}
