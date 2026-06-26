@@ -6,11 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint .",
-    "migrate:giftly": "tsx scripts/migrate-giftly.ts",
-    "db:reset": "supabase db reset",
-    "db:push": "supabase db push",
-    "gen:types": "supabase gen types typescript --linked --schema public --schema marketplace > app/lib/database.types.ts"
+    "lint": "eslint ."
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.105.0",

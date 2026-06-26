@@ -1,12 +1,14 @@
 @import "tailwindcss";
 
-:root {
-  /* blackout mono: accent is off-white, no color */
-  --accent: #f8f8f8;
-}
-
 html,
 body {
   height: 100%;
   margin: 0;
+}
+
+body {
+  background: #060606;
+  color: #f2f2f2;
+  font-family: var(--font-mono), monospace;
+  -webkit-font-smoothing: antialiased;
 }
