@@ -7,7 +7,7 @@
   var GREEN = "#5db075", G2 = "#7cd49a";
   function CHK(c) { return '<svg width="13" height="13" viewBox="0 0 24 24" fill="' + (c || GREEN) + '" style="flex:none"><path d="M9 16.2l-3.5-3.5L4 14.2l5 5 11-11-1.5-1.5z"/></svg>'; }
   function imgFor(sub) { var i = Array.prototype.find.call(document.querySelectorAll("img"), function (x) { return x.alt && x.alt.toLowerCase().indexOf(sub) !== -1; }); return i ? i.getAttribute("src") : ""; }
-  function thumb(v) { return "https://img.youtube.com/vi/" + v + "/hqdefault.jpg"; }
+  function thumb(v) { return "https://img.youtube.com/vi/" + v + "/mqdefault.jpg"; } // clean 16:9, no black bars
 
   function card(r, badge) {
     var key = (r.brand + " " + r.title).toLowerCase();
