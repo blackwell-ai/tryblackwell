@@ -15,8 +15,8 @@
     return '<div class="shrink-0 snap-start basis-[calc((100%-2rem)/3)]"><div class="h-full w-full cursor-pointer group"><div class="group h-full"><div class="flex pb-2 flex-col gap-2">' +
       '<div class="relative aspect-[13/16] w-full overflow-clip rounded-xl bg-[#F3F3F3] dark:bg-[#F3F3F3]" style="background-color:rgb(239,239,239)">' +
       '<div class="h-full w-full" style="display:flex;align-items:center;justify-content:center;mix-blend-mode:darken"><img class="m-0 block" style="max-width:86%;max-height:86%;object-fit:contain;mix-blend-mode:darken" alt="' + r.brand + '" src="' + imgFor(sub) + '"></div></div>' +
-      '<div class="flex flex-col px-1" style="height:84px">' +
-      '<div class="line-clamp-2 font-medium text-sm leading-[1.25]">' + r.brand + " " + r.title + '</div>' +
+      '<div class="flex flex-col px-1" style="height:104px">' +
+      '<div class="line-clamp-3 font-medium text-sm leading-[1.25]">' + r.brand + " " + r.title + '</div>' +
       '<div class="text-token-text-secondary text-[13px]" style="margin-top:3px">$' + r.price + ' · ' + r.cohort.n + ' tested for your skin</div>' +
       '<span class="text-[13px] flex flex-row items-center gap-1" style="color:' + GREEN + ';font-weight:500;margin-top:auto">' + CHK() + badge + '</span>' +
       '</div></div></div></div></div>';
